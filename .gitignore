@@ -10,6 +10,9 @@ pyvenv.cfg
 # pip: package installer for Python
 pip-selfcheck.json
 
+# No LLMs
+models/
+
 # Custom python interpreter
 .Python
 [Bb]in
