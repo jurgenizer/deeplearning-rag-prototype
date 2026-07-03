@@ -46,7 +46,9 @@ The source corpus lives in a sibling repo, `../0-scraper/scraped-text-files/`; t
 
 ## Important: local-only artifacts
 
-`.gitignore` excludes `models/`, `venv/`, `notebooks/tmp/` (the persisted Weaviate DB), and the byte-compiled/`__pycache__` dirs. All of these exist in the working tree but are **not** tracked — none of them (in particular the `bge-small-en-v1.5` model weights) are in git history. The `bge-small-en-v1.5` model must exist locally for the notebook to run offline; download it into `models/` (e.g. via `huggingface-cli`) if it is missing.
+`.gitignore` excludes `venv/`, `notebooks/tmp/` (the persisted Weaviate DB), and the byte-compiled/`__pycache__` dirs. These exist in the working tree but are **not** tracked, and nothing large is in git history.
+
+**Embedding model:** `EMBEDDING_MODEL_NAME` is a Hugging Face repo ID, not a local path. FastEmbed downloads the model (ONNX build + tokenizer) automatically via `huggingface_hub` into the standard HF cache (`~/.cache/huggingface/hub/`) on first use, then reuses it offline. It does **not** read from any in-repo `models/` folder, so the first run needs network access. There is no need to pre-download weights; to pin a custom location, pass `cache_dir=` to `TextEmbedding(...)`.
 
 ## Utilities
 
